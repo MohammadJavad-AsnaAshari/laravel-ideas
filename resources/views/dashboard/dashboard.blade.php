@@ -1,4 +1,4 @@
-@extends('layouts.layout', ['title' => 'dashboard'])
+@extends('layouts.layout', ['title' => 'Dashboard'])
 
 @section('content')
     <div class="container py-4">
