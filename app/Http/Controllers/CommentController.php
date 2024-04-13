@@ -11,12 +11,12 @@ class CommentController extends Controller
     public function store(Idea $idea)
     {
         $validate = request()->validate([
-            'content' => 'required|min:5|max:255'
+            'comment-content' => 'required|min:5|max:255'
         ]);
 
         $comment = new Comment();
         $comment->idea_id = $idea->id;
-        $comment->content = $validate['content'];
+        $comment->content = $validate['comment-content'];
         $comment->save();
 
         return redirect()->route('idea.show', $idea->id)->with('success', 'Comment posted successfully!');
