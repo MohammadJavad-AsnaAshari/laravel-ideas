@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout', ['title' => 'Idea: ' . $idea->id ])
 
 @section('content')
     <div class="container py-4">
