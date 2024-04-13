@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,6 @@ Route::group(['prefix' => '/ideas'], function () {
     Route::get('/{idea}/edit', [IdeaController::class, 'edit'])->name('idea.edit');
     Route::put('/{idea}', [IdeaController::class, 'update'])->name('idea.update');
     Route::delete('/{idea}', [IdeaController::class, 'destroy'])->name('idea.destroy');
+
+    Route::post('/{idea}/comments', [CommentController::class, 'store'])->name('idea.comments.store');
 });
