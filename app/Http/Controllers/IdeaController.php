@@ -21,7 +21,12 @@ class IdeaController extends Controller
 
     public function store(IdeaRequest $request)
     {
-        Idea::create($request->validated());
+        $validated = [
+            'content' => $request->validated('content'),
+            'user_id' => auth()->id()
+        ];
+
+        Idea::create($validated);
 
         return redirect()->route('idea.index')->with('success', 'Idea created successfully !');
     }
@@ -33,6 +38,9 @@ class IdeaController extends Controller
 
     public function edit(Idea $idea)
     {
+        if (auth()->id() !== $idea->user->id){
+            abort(401, "User can't perform this actions");
+        }
         $editing = true;
 
         return view('ideas.show',compact('idea','editing'));
@@ -40,6 +48,9 @@ class IdeaController extends Controller
 
     public function update(IdeaRequest $request, Idea $idea)
     {
+        if (auth()->id() !== $idea->user->id){
+            abort(401, "User can't perform this actions");
+        }
         $idea->update($request->validated());
 
         return redirect()->route('idea.show', ['idea' => $idea])->with('success', 'Idea updated successfully !');
@@ -47,6 +58,9 @@ class IdeaController extends Controller
 
     public function destroy(Idea $idea)
     {
+        if (auth()->id() !== $idea->user->id){
+            abort(401, "User can't perform this actions");
+        }
         $idea->delete();
 
         return redirect()->route('idea.index')->with('success', 'Idea deleted successfully !');
