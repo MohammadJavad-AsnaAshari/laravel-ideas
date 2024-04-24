@@ -22,17 +22,8 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::group(['prefix' => '/ideas', 'as' => 'idea.'], function () {
-    Route::get('/', [IdeaController::class, 'index'])->name('index');
-    Route::get('/create', [IdeaController::class, 'create'])->name('create');
-    Route::post('/', [IdeaController::class, 'store'])->name('store');
-    Route::get('/{idea}', [IdeaController::class, 'show'])->name('show');
-
-    Route::group(['middleware' => ['auth', 'store.last.url']], function () {
-        Route::get('/{idea}/edit', [IdeaController::class, 'edit'])->name('edit');
-        Route::put('/{idea}', [IdeaController::class, 'update'])->name('update');
-        Route::delete('/{idea}', [IdeaController::class, 'destroy'])->name('destroy');
-
-        Route::post('/{idea}/comments', [CommentController::class, 'store'])->name('comments.store');
-    });
-});
+Route::resource('ideas', IdeaController::class)->only(['store', 'edit', 'update', 'destroy'])
+    ->middleware(['auth', 'store.last.url']);
+Route::resource('ideas', IdeaController::class)->only(['index', 'show']);
+Route::resource('idea.comments', CommentController::class)->only('store')
+    ->middleware(['auth', 'store.last.url']);
