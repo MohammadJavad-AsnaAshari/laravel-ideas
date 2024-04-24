@@ -28,7 +28,7 @@ Route::group(['prefix' => '/ideas', 'as' => 'idea.'], function () {
     Route::post('/', [IdeaController::class, 'store'])->name('store');
     Route::get('/{idea}', [IdeaController::class, 'show'])->name('show');
 
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => ['auth', 'store.last.url']], function () {
         Route::get('/{idea}/edit', [IdeaController::class, 'edit'])->name('edit');
         Route::put('/{idea}', [IdeaController::class, 'update'])->name('update');
         Route::delete('/{idea}', [IdeaController::class, 'destroy'])->name('destroy');

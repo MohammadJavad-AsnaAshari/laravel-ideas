@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->redirectTo = URL::previous();
+    }
+
     public function register()
     {
         return view('auth.register');
@@ -33,7 +40,10 @@ class AuthController extends Controller
         if (auth()->attempt($validated)) {
             request()->session()->regenerate();
 
-            return redirect()->route('dashboard')->with('success', 'Account logged in successfully!');
+            $url = Session::get('url.intended', route('dashboard'));
+            Session::forget('url.intended'); // Clear the intended URL after use
+
+            return redirect()->to($url)->with('success', 'Account logged in successfully!');
         }
 
         return redirect()->route('login')->withErrors([
