@@ -5,17 +5,17 @@
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
                      src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $idea->user->name }}" alt="Mario Avatar">
                 <div>
-                    <h5 class="card-title mb-0"><a href="{{ route('idea.show', ['idea' => $idea]) }}">
+                    <h5 class="card-title mb-0"><a href="{{ route('ideas.show', ['idea' => $idea]) }}">
                         {{ $idea->user->name }}
                         </a></h5>
                 </div>
             </div>
             <div>
-                <form method="POST" action="{{ route('idea.destroy',$idea->id) }}">
+                <form method="POST" action="{{ route('ideas.destroy',$idea->id) }}">
                     @csrf
                     @method('delete')
-                    <a class="mx-2" href="{{ route('idea.edit', $idea->id) }}"> Edit </a>
-                    <a href="{{ route('idea.show', $idea->id) }}"> View </a>
+                    <a class="mx-2" href="{{ route('ideas.edit', $idea->id) }}"> Edit </a>
+                    <a href="{{ route('ideas.show', $idea->id) }}"> View </a>
                     <button class="ms-1 btn btn-danger btn-sm"> X</button>
                 </form>
 
@@ -24,7 +24,7 @@
     </div>
     <div class="card-body">
         @if ($editing ?? false)
-            <form action="{{ route('idea.update',$idea->id) }}" method="post">
+            <form action="{{ route('ideas.update',$idea->id) }}" method="post">
                 @csrf
                 @method('put')
                 <div class="mb-3">
