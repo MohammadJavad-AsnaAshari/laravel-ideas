@@ -11,15 +11,13 @@
                 @include('shared.error-message')
                 @include('shared.submit-idea')
                 <hr>
-                @if(count($ideas))
-                    @foreach($ideas as $idea)
-                        <div class="mt-3">
-                            @include('shared.idea-card')
-                        </div>
-                    @endforeach
-                @else
+                @forelse($ideas as $idea)
+                    <div class="mt-3">
+                        @include('shared.idea-card')
+                    </div>
+                @empty
                     <p class="text-center mt-4">No Results Found!</p>
-                @endif
+                @endforelse
                 <div class="mt-3">
                     {{ $ideas->withQueryString()->links() }}
                 </div>
