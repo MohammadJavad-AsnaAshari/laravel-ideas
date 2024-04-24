@@ -13,9 +13,10 @@ class CommentController extends Controller
         $validated = $commentRequest->validated();
 
         $idea->comments()->create([
-            'content' => $validated['comment-content']
+            'content' => $validated['comment-content'],
+            'user_id' => auth()->id()
         ]);
 
-        return redirect()->route('idea.show', $idea->id)->with('success', 'Comment posted successfully!');
+        return redirect()->route('ideas.show', $idea->id)->with('success', 'Comment posted successfully!');
     }
 }
