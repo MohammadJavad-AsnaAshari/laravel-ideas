@@ -1,7 +1,9 @@
 <div class="card">
     <div class="px-3 pt-4 pb-2">
         @if($profileEditing ?? false)
-            @include('shared.user-card-edit')
+            @if (auth()->user()->id === $user->id )
+                @include('shared.user-card-edit')
+            @endif
         @else
             @include('shared.user-card-show')
         @endif
