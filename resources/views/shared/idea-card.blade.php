@@ -5,7 +5,7 @@
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
                      src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $idea->user->name }}" alt="Mario Avatar">
                 <div>
-                    <h5 class="card-title mb-0"><a href="{{ route('ideas.show', ['idea' => $idea]) }}">
+                    <h5 class="card-title mb-0"><a href="{{ route('users.show', ['user' => $idea->user->id]) }}">
                             {{ $idea->user->name }}
                         </a></h5>
                 </div>

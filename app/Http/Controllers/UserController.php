@@ -23,9 +23,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $ideas = $user->ideas()->paginate(5);
-        $editing = true;
+        $profileEditing = true;
 
-        return view('users.show', compact('user', 'ideas', 'editing'));
+        return view('users.show', compact('user', 'ideas', 'profileEditing'));
     }
 
     /**
