@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
@@ -23,10 +22,12 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::resource('ideas', IdeaController::class)->only(['store', 'edit', 'update', 'destroy'])
+Route::resource('ideas', IdeaController::class)
+    ->only(['store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'store.last.url']);
 Route::resource('ideas', IdeaController::class)->only(['index', 'show']);
-Route::resource('idea.comments', CommentController::class)->only('store')
+Route::resource('idea.comments', CommentController::class)
+    ->only('store')
     ->middleware(['auth', 'store.last.url']);
 
 Route::resource('users', UserController::class)
