@@ -50,4 +50,13 @@ class UserController extends Controller
             ->route('users.show', ['user' => $user])
             ->with('success', 'User updated successfully !');
     }
+
+    public function profile()
+    {
+        if (auth()->check()) {
+            return $this->show(auth()->user());
+        }
+
+        return redirect('login');
+    }
 }
