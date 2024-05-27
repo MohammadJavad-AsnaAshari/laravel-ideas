@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Mail\WelcomeEmail;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
@@ -24,7 +26,10 @@ class AuthController extends Controller
     public function store(RegisterRequest $request)
     {
         $validated = $request->validated();
-        User::create($validated);
+        $user = User::create($validated);
+
+        // send welcome email to register user :)
+        Mail::to($user->email)->send(new WelcomeEmail($user));
 
         return redirect()->route('dashboard')->with('success', 'Account created successfully!');
     }
