@@ -22,6 +22,8 @@ class Idea extends Model
         'like'
     ];
 
+    protected $with = ['user:id,name,image', 'comments.user:id,name,image'];
+
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);

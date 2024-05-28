@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $ideas = Idea::with('user:id,name,image', 'comments.user:id,name,image')->orderBy('created_at','DESC');
+        $ideas = Idea::orderBy('created_at', 'DESC');
 
         if (request()->has('search')) {
             $ideas = $ideas->where('content', 'like', '%' . request('search', '') . '%');
