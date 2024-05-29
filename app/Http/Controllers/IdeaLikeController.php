@@ -12,7 +12,7 @@ class IdeaLikeController extends Controller
         $liker = auth()->user();
         $liker->likes()->attach($idea);
 
-        return redirect()->route('dashboard')->with('success', 'Liked successfully!');
+        return redirect()->back()->with('success', 'Liked successfully!');
     }
 
     public function unlike(Idea $idea)
@@ -20,6 +20,6 @@ class IdeaLikeController extends Controller
         $liker = auth()->user();
         $liker->likes()->detach($idea);
 
-        return redirect()->route('dashboard')->with('success', 'Liked successfully!');
+        return redirect()->back()->with('success', 'Liked successfully!');
     }
 }

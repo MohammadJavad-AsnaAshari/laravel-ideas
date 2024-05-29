@@ -54,6 +54,6 @@
                     {{ $idea->created_at->diffForHumans() }} </span>
             </div>
         </div>
-        @include('shared.comments-box')
+        @include('ideas.shared.comments-box')
     </div>
 </div>
