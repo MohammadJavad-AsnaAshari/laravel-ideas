@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\IdeaLikeController;
@@ -23,6 +24,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
 
 Route::resource('ideas', IdeaController::class)
     ->only(['store', 'edit', 'update', 'destroy'])
