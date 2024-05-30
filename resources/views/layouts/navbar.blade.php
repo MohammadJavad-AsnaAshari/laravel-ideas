@@ -17,6 +17,11 @@
                     </li>
                 @endguest
                 @auth()
+                    @if (auth()->user()->is_admin)
+                        <li class="nav-item">
+                            <a class="nav-link" href=" {{ route('admin.dashboard.index') }} "> Admin Dashboard </a>
+                        </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href=" {{ route('profile') }} "> {{auth()->user()->name}} </a>
                     </li>

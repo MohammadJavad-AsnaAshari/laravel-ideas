@@ -13,6 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * @property int $id
  * @property string $name
+ * @property boolean is_admin
  * @property string $bio
  * @property string $email
  */
