@@ -38,9 +38,7 @@ class IdeaController extends Controller
 
     public function edit(Idea $idea)
     {
-        if (auth()->id() !== $idea->user->id){
-            abort(401, "User can't perform this actions");
-        }
+        $this->authorize('idea.edit', $idea);
         $editing = true;
 
         return view('ideas.show',compact('idea','editing'));
@@ -48,9 +46,7 @@ class IdeaController extends Controller
 
     public function update(IdeaRequest $request, Idea $idea)
     {
-        if (auth()->id() !== $idea->user->id){
-            abort(401, "User can't perform this actions");
-        }
+        $this->authorize('idea.edit', $idea);
         $idea->update($request->validated());
 
         return redirect()->route('ideas.show', ['idea' => $idea])->with('success', 'Idea updated successfully !');
@@ -58,9 +54,7 @@ class IdeaController extends Controller
 
     public function destroy(Idea $idea)
     {
-        if (auth()->id() !== $idea->user->id){
-            abort(401, "User can't perform this actions");
-        }
+        $this->authorize('idea.delete', $idea);
         $idea->delete();
 
         return redirect()->route('ideas.index')->with('success', 'Idea deleted successfully !');
