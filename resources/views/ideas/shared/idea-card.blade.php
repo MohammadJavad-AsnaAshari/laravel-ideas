@@ -14,13 +14,15 @@
             </div>
             <div>
                 @auth()
-                    @can('idea.edit', $idea)
+                    @can('update', $idea)
                         <form method="POST" action="{{ route('ideas.destroy',$idea->id) }}">
                             @csrf
                             @method('delete')
                             <a class="mx-2" href="{{ route('ideas.edit', $idea->id) }}"> Edit </a>
                             <a href="{{ route('ideas.show', $idea->id) }}"> View </a>
-                            <button class="ms-1 btn btn-danger btn-sm"> X</button>
+                            @can('delete', $idea)
+                                <button class="ms-1 btn btn-danger btn-sm"> X</button>
+                            @endcan
                         </form>
                     @endcan
                 @endauth
