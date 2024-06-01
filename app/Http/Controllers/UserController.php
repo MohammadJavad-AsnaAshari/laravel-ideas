@@ -24,6 +24,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
+
         $ideas = $user->ideas()->paginate(5);
         $profileEditing = true;
 
@@ -35,6 +37,8 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $validatedData = $request->validated();
 
         if ($request->hasFile('image')) {

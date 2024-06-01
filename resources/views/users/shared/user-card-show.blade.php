@@ -7,20 +7,18 @@
             <span class="fs-6 text-muted">@ {{ $user->name }}</span>
         </div>
     </div>
-    @auth()
-        @if(auth()->id() === $user->id)
-            <div>
-                <a class="mx-2" href="{{ route('users.edit', $user->id) }}"> Edit </a>
-            </div>
-        @endif
-    @endauth
+    @can('update', $user)
+        <div>
+            <a class="mx-2" href="{{ route('users.edit', $user->id) }}"> Edit </a>
+        </div>
+    @endcan
 </div>
 <div class="px-2 mt-4">
     <h5 class="fs-5"> About : </h5>
     <p class="fs-6 fw-light"> {{ $user->bio }} </p>
     @include('users.shared.user-stats')
     @auth()
-        @if(auth()->id() !== $user->id)
+        @if(auth()->user()->isNot($user))
             @if(auth()->user()->follows($user))
                 <div class="mt-3">
                     <form action="{{ route('users.unfollow', $user->id) }}" method="POST">

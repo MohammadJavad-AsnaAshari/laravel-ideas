@@ -13,13 +13,11 @@
                 <span class="fs-6 text-muted">@ {{ $user->name }}</span>
             </div>
         </div>
-        @auth()
-            @if(auth()->id() === $user->id)
-                <div>
-                    <a class="mx-2" href="{{ route('users.show', $user->id) }}"> Cancel </a>
-                </div>
-            @endif
-        @endauth
+        @can('update', $user)
+            <div>
+                <a class="mx-2" href="{{ route('users.show', $user->id) }}"> Cancel </a>
+            </div>
+        @endcan()
     </div>
     <div class="px-2 mt-4">
         <label for="image">Profile picture</label>
@@ -33,20 +31,11 @@
                 <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
             @enderror
         </div>
-        @auth()
-            @if(auth()->id() === $user->id)
-                <div class="">
-                    <button type="submit" class="btn btn-dark mb-2 btn-sm"> Update</button>
-                </div>
-            @endif
-        @endauth
+        @can('update', $user)
+            <div class="">
+                <button type="submit" class="btn btn-dark mb-2 btn-sm"> Update</button>
+            </div>
+        @endcan
         @include('users.shared.user-stats')
-        @auth()
-            @if(auth()->id() !== $user->id)
-                <div class="mt-3">
-                    <button class="btn btn-primary btn-sm"> Follow</button>
-                </div>
-            @endif
-        @endauth
     </div>
 </form>
