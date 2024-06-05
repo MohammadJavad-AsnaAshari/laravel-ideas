@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'share' => 'partagez-vous des idées',
+    'share' => 'Share yours ideas',
     'login_to_share' => 'Login to share your ideas'
 ];
