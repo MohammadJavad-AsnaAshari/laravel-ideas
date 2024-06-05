@@ -9,14 +9,10 @@ class DashboardController extends Controller
 {
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $ideas = Idea::orderBy('created_at', 'DESC');
+        $ideas = Idea::when(request()->has('search'), function ($query) {
+            $query->search(request('search', ''));
+        })->orderBy('created_at', 'DESC')->paginate(5);
 
-        if (request()->has('search')) {
-            $ideas = $ideas->search(request('search', ''));
-        }
-
-        return view('dashboard.dashboard', [
-            'ideas' => $ideas->paginate(5)
-        ]);
+        return view('dashboard.dashboard', compact('ideas'));
     }
 }
