@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,12 +25,18 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
 
-        View::share(
-            'topUsers',
-            User::withCount('ideas')
+        \Debugbar::enable();
+
+//        cache()->flush();
+//        cache()->forget('topUsers');
+
+        $topUsers = Cache::remember('topUsers', now()->addMinute(), function () {
+            return User::withCount('ideas')
                 ->orderBy('ideas_count', 'DESC')
                 ->limit(5)
-                ->get()
-        );
+                ->get();
+        });
+
+        View::share('topUsers', $topUsers);
     }
 }
