@@ -23,6 +23,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/lang/{lang}', function ($lang) {
+    app()->setLocale($lang);
+    session()->put('locale', $lang);
+
+    return redirect()->back()->with('success', "Your language updated to $lang");
+})->name('lang');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
