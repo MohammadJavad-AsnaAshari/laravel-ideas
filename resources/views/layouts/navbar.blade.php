@@ -19,6 +19,9 @@
                         <li><a class="dropdown-item" href="{{ route('lang', 'es') }}">Spanish</a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <span class="nav-link">|</span>
+                </li>
                 @guest()
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('login') ? 'active' : ''}}" aria-current="page" href="/login">Login</a>
