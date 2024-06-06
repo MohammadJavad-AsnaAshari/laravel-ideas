@@ -1,4 +1,4 @@
-@extends('layouts.layout', ['title' => 'Admin Dashboard'])
+@extends('layouts.layout', ['title' => 'Users | Admin Dashboard'])
 
 @section('content')
     <div class="container py-4">
@@ -16,7 +16,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Joined At</th>
-                        <th>#</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
