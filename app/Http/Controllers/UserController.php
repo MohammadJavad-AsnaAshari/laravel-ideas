@@ -46,7 +46,7 @@ class UserController extends Controller
             Storage::disk('public')->delete($user->image ?? '');
         }
 
-        $user = $user->update($validatedData);
+        $user->update($validatedData);
 
         return redirect()
             ->route('users.show', ['user' => $user])

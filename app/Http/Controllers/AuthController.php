@@ -29,7 +29,7 @@ class AuthController extends Controller
         $user = User::create($validated);
 
         // send welcome email to register user :)
-        Mail::to($user->email)->send(new WelcomeEmail($user));
+//        Mail::to($user->email)->send(new WelcomeEmail($user));
 
         return redirect()->route('dashboard')->with('success', 'Account created successfully!');
     }
